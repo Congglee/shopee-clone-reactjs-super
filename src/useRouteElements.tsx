@@ -1,14 +1,15 @@
 import { useContext } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-import ProductList from './pages/ProductList'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import RegisterLayout from './layouts/RegisterLayout'
-import MainLayout from './layouts/MainLayout'
-import Profile from './pages/Profile'
-import { AppContext } from './contexts/app.context'
 import path from './constants/path'
+import { AppContext } from './contexts/app.context'
+import MainLayout from './layouts/MainLayout'
+import RegisterLayout from './layouts/RegisterLayout'
+import Cart from './pages/Cart'
+import Login from './pages/Login'
 import ProductDetail from './pages/ProductDetail'
+import ProductList from './pages/ProductList'
+import Profile from './pages/Profile'
+import Register from './pages/Register'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -54,6 +55,14 @@ export default function useRouteElements() {
           element: (
             <MainLayout>
               <Profile />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.cart,
+          element: (
+            <MainLayout>
+              <Cart />
             </MainLayout>
           )
         }
