@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import purchaseApi from 'src/apis/purchase.api'
@@ -9,6 +9,7 @@ import { purchasesStatus } from 'src/constants/purchase'
 import { Purchase } from 'src/types/purchase.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
+import { keyBy } from 'lodash'
 
 interface ExtendedPurchase extends Purchase {
   disabled: boolean
@@ -17,28 +18,38 @@ interface ExtendedPurchase extends Purchase {
 
 export default function Cart() {
   const [extendedPurchase, setExtendedPurchase] = useState<ExtendedPurchase[]>([])
-  const { data: purchasesInCartData } = useQuery({
+  const { data: purchasesInCartData, refetch } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart })
+  })
+
+  const updatePurchaseMutation = useMutation({
+    mutationFn: purchaseApi.updatePurchase,
+    onSuccess: () => {
+      refetch()
+    }
   })
 
   const purchasesInCart = purchasesInCartData?.data.data
   const isAllChecked = extendedPurchase.every((purchase) => purchase.checked)
 
   useEffect(() => {
-    setExtendedPurchase(
-      purchasesInCart?.map((purchase) => ({
-        ...purchase,
-        disabled: false,
-        checked: false
-      })) || []
-    )
+    setExtendedPurchase((prev) => {
+      const extendedPurchasesObject = keyBy(prev, '_id')
+      return (
+        purchasesInCart?.map((purchase) => ({
+          ...purchase,
+          disabled: false,
+          checked: Boolean(extendedPurchasesObject[purchase._id]?.checked)
+        })) || []
+      )
+    })
   }, [purchasesInCart])
 
-  const handleCheck = (productIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheck = (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setExtendedPurchase(
       produce((draft) => {
-        draft[productIndex].checked = event.target.checked
+        draft[purchaseIndex].checked = event.target.checked
       })
     )
   }
@@ -49,6 +60,26 @@ export default function Cart() {
         ...purchase,
         checked: !isAllChecked
       }))
+    )
+  }
+
+  const handleQuantity = (purchaseIndex: number, value: number, enable: boolean) => {
+    if (enable) {
+      const purchase = extendedPurchase[purchaseIndex]
+      setExtendedPurchase(
+        produce((draft) => {
+          draft[purchaseIndex].disabled = true
+        })
+      )
+      updatePurchaseMutation.mutate({ product_id: purchase.product._id, buy_count: value })
+    }
+  }
+
+  const handleTypeQuantity = (purchaseIndex: number) => (value: number) => {
+    setExtendedPurchase(
+      produce((draft) => {
+        draft[purchaseIndex].buy_count = value
+      })
     )
   }
 
@@ -137,6 +168,19 @@ export default function Cart() {
                           max={purchase.product.quantity}
                           value={purchase.buy_count}
                           classNameWrapper='flex items-center'
+                          onIncrease={(value) => handleQuantity(index, value, value <= purchase.product.quantity)}
+                          onDecrease={(value) => handleQuantity(index, value, value >= 1)}
+                          onType={handleTypeQuantity(index)}
+                          onFocusOut={(value) =>
+                            handleQuantity(
+                              index,
+                              value,
+                              value >= 1 &&
+                                value <= purchase.product.quantity &&
+                                value !== (purchasesInCart as Purchase[])[index].buy_count
+                            )
+                          }
+                          disabled={purchase.disabled}
                         />
                       </div>
                       <div className='col-span-1'>
