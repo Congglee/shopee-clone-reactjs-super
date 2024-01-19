@@ -1,27 +1,55 @@
-# React + TypeScript + Vite
+# [Shopee](https://github.com/Congglee/shopee-clone-reactjs-super)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An e-commerce shopee clone project from reactjs super course. It is bootstrapped with `vite`.
 
-Currently, two official plugins are available:
+> **Warning**
+> This project is still in development and is not ready for production use.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[![Shopee Clone](./public/images/screenshot.png)]()
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Library:** [ReactJS](https://react.dev/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com), [HeadlessUI](https://headlessui.com/)
+- **State Management:** [TanStack Query v4](https://tanstack.com/query/v4/docs/react/overview) for async state, [React Context](https://react.dev/reference/react/useContext) for regular state
+- **Form Management:** [React Hook Form](https://react-hook-form.com/)
+- **Router:** [React Router Dom v6](https://reactrouter.com/en/main)
+- **Build Tool:** [Vite](https://vitejs.dev/)
 
-- Configure the top-level `parserOptions` property like this:
+## Features to be implemented
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- [ ] Clone Shopee user information page
+- [ ] Add 404 Pages
+- [ ] Add ErrorBoundary component
+- [ ] Lazyload components with react lazy and react router
+- [ ] Implement token refresh function
+- [ ] Multiple language in ReactJs with I18Next
+- [ ] Improve SEO with React Helmet
+- [ ] Unit Test & Integration Test for Clone Shopee project
+- [ ] Storybook for React
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Running Locally
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/Congglee/shopee-clone-reactjs-super.git
+   ```
+
+2. Install dependencies using yarn
+
+   ```bash
+   yarn install
+   ```
+
+3. Copy the `.env.example` to `.env` and update the variables.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Start the development server
+
+   ```bash
+   yarn dev
+   ```
