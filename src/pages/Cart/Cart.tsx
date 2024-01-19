@@ -1,6 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { produce } from 'immer'
+import { keyBy } from 'lodash'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import purchaseApi from 'src/apis/purchase.api'
 import Button from 'src/components/Button'
 import QuantityController from 'src/components/QuantityController'
@@ -8,9 +11,6 @@ import path from 'src/constants/path'
 import { purchasesStatus } from 'src/constants/purchase'
 import { Purchase } from 'src/types/purchase.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import { produce } from 'immer'
-import { keyBy } from 'lodash'
-import { toast } from 'react-toastify'
 
 interface ExtendedPurchase extends Purchase {
   disabled: boolean
@@ -193,7 +193,7 @@ export default function Cart() {
                                   name: purchase.product.name,
                                   id: purchase.product._id
                                 })}`}
-                                className='line-clamp-2'
+                                className='line-clamp-2 text-left'
                               >
                                 {purchase.product.name}
                               </Link>
