@@ -104,8 +104,7 @@ export const userSchema = yup.object({
   avatar: yup.string().max(1000, 'Độ dài tối đa là 1000 ký tự'),
   date_of_birth: yup.date().max(new Date(), 'Hãy chọn một ngày trong quá khứ'),
   password: schema.fields['password'],
-  new_password: schema.fields['password'],
-  confirm_password: schema.fields['confirm_password']
+  new_password: schema.fields['password']
 })
 
 export type UserSchema = yup.InferType<typeof userSchema>
