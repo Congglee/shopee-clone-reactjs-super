@@ -112,7 +112,7 @@ export default function Profile() {
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileFromLocal = event.target.files?.[0]
-    if (fileFromLocal && (fileFromLocal?.size >= config.maxSizeUploadAvatar || fileFromLocal.type.includes('image'))) {
+    if (fileFromLocal && (fileFromLocal?.size >= config.maxSizeUploadAvatar || !fileFromLocal.type.includes('image'))) {
       toast.error(`Dung lượng file tối đa 1 MB, Định dạng:.JPEG, .PNG`, {
         position: 'top-center'
       })
