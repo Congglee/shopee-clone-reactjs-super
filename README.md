@@ -18,7 +18,7 @@ An e-commerce shopee clone project from reactjs super course. It is bootstrapped
 
 ## Features to be implemented
 
-- [ ] Clone Shopee user information page
+- [x] Clone Shopee user information page
 - [ ] Add 404 Pages
 - [ ] Add ErrorBoundary component
 - [ ] Lazyload components with react lazy and react router
