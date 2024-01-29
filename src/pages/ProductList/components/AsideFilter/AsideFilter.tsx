@@ -40,7 +40,8 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       price_min: '',
       price_max: ''
     },
-    resolver: yupResolver(priceSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: yupResolver(priceSchema as any),
     shouldFocusError: false
   })
   const navigate = useNavigate()

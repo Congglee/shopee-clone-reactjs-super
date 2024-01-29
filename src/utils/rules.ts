@@ -1,6 +1,5 @@
-import { AnyObject } from 'yup/lib/types'
-import type { RegisterOptions, UseFormGetValues } from 'react-hook-form'
 import * as yup from 'yup'
+import type { RegisterOptions, UseFormGetValues } from 'react-hook-form'
 
 type Rules = { [key in 'email' | 'passsword' | 'confirm_password']?: RegisterOptions }
 
@@ -58,7 +57,7 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
   }
 })
 
-function testPriceMinMax(this: yup.TestContext<AnyObject>) {
+function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
   const { price_min, price_max } = this.parent as { price_min: string; price_max: string }
   if (price_min !== '' && price_max !== '') {
     return Number(price_max) >= Number(price_min)
