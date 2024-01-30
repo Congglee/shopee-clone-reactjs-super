@@ -1,6 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { omit } from 'lodash'
+// Lodash không có tính năng tree-shaking
+// import { omit } from 'lodash'
+
+// Import chỉ mỗi function omit
+import omit from 'lodash/omit'
+
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { schema, Schema } from 'src/utils/rules'
