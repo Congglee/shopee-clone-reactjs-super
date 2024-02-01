@@ -7,8 +7,12 @@ import authApi from 'src/apis/auth.api'
 import { purchasesStatus } from 'src/constants/purchase'
 import { AppContext } from 'src/contexts/app.context'
 import { getAvatarUrl } from 'src/utils/utils'
+import { useTranslation } from 'react-i18next'
+import { locales } from 'src/i18n/i18n'
 
 export default function NavHeader() {
+  const { i18n } = useTranslation()
+  const currentLanguage = locales[i18n.language as keyof typeof locales]
   const queryClient = useQueryClient()
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const logoutMutation = useMutation({
@@ -24,6 +28,10 @@ export default function NavHeader() {
     logoutMutation.mutate()
   }
 
+  const changeLanguage = (lng: 'en' | 'vi') => {
+    i18n.changeLanguage(lng)
+  }
+
   return (
     <div className='flex justify-end'>
       <Popover
@@ -32,8 +40,12 @@ export default function NavHeader() {
         renderPopover={
           <div className='bg-white relative shadow-md rounded-md border border-gray-200'>
             <div className='flex flex-col py-2 pr-28 pl-3'>
-              <button className='py-2 px-3 hover:text-orange'>Tiếng Việt</button>
-              <button className='py-2 px-3 hover:text-orange mt-2'>English</button>
+              <button className='text-left py-2 px-3 hover:text-orange' onClick={() => changeLanguage('vi')}>
+                Tiếng Việt
+              </button>
+              <button className='text-left py-2 px-3 hover:text-orange mt-2' onClick={() => changeLanguage('en')}>
+                English
+              </button>
             </div>
           </div>
         }
@@ -53,7 +65,7 @@ export default function NavHeader() {
           />
         </svg>
 
-        <span className='mx-1'>Tiếng Việt</span>
+        <span className='mx-1'>{currentLanguage}</span>
 
         <svg
           xmlns='http://www.w3.org/2000/svg'
