@@ -22,8 +22,8 @@ An e-commerce shopee clone project from reactjs super course. It is bootstrapped
 - [x] Add 404 Pages
 - [x] Add ErrorBoundary component
 - [x] Lazyload components with react lazy and react router
-- [ ] Implement token refresh function
-- [ ] Multiple language in ReactJs with I18Next
+- [x] Implement token refresh function
+- [x] Multiple language in ReactJs with I18Next
 - [ ] Improve SEO with React Helmet
 - [ ] Unit Test & Integration Test for Clone Shopee project
 - [ ] Storybook for React
