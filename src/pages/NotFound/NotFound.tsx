@@ -1,8 +1,13 @@
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
 export default function NotFound() {
   return (
     <main className='h-screen w-full flex flex-col justify-center items-center'>
+      <Helmet>
+        <title>404 | Shopee Clone</title>
+        <meta name='description' content='Không tìm thấy trang' />
+      </Helmet>
       <h1 className='text-9xl font-extrabold text-gray-900 tracking-widest'>404</h1>
       <div className='bg-orange px-2 text-sm rounded rotate-12 absolute text-white'>Page Not Found</div>
       <button className='mt-5'>

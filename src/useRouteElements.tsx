@@ -37,7 +37,7 @@ function RejectedRoute() {
 }
 
 export default function useRouteElements() {
-  const routeElement = useRoutes([
+  const routeElements = useRoutes([
     {
       path: '',
       element: <RejectedRoute />,
@@ -151,5 +151,5 @@ export default function useRouteElements() {
     }
   ])
 
-  return routeElement
+  return routeElements
 }

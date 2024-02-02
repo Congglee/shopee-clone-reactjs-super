@@ -18,7 +18,7 @@ function App() {
   }, [reset])
 
   return (
-    <div>
+    <div className='font-Inter'>
       {routeElements}
       <ToastContainer />
     </div>

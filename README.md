@@ -1,6 +1,6 @@
 # [Shopee](https://github.com/Congglee/shopee-clone-reactjs-super)
 
-An e-commerce shopee clone project from reactjs super course. It is bootstrapped with `vite`.
+An simple e-commerce shopee clone project from reactjs super course. It is bootstrapped with `vite`.
 
 > **Warning**
 > This project is still in development and is not ready for production use.
