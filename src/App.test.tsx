@@ -4,7 +4,8 @@ import * as matchers from '@testing-library/jest-dom/matchers'
 import '@testing-library/jest-dom/vitest'
 import { describe, expect, test } from 'vitest'
 import App from './App'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom'
+import { logScreen } from './utils/testUtils'
 
 expect.extend(matchers)
 
@@ -32,6 +33,18 @@ describe('App', () => {
       expect(screen.queryByText('Bạn mới biết đến Shopee?')).toBeInTheDocument()
       expect(document.querySelector('title')?.textContent).toBe('Đăng nhập | Shopee Clone')
     })
-    screen.debug(document.body.parentElement as HTMLElement, 99999999)
+  })
+
+  test('Về trang not found', async () => {
+    const badRoutes = '/some/bad/route'
+    render(
+      <MemoryRouter initialEntries={[badRoutes]}>
+        <App />
+      </MemoryRouter>
+    )
+    await waitFor(() => {
+      expect(screen.getByText(/Page Not Found/i)).toBeInTheDocument()
+    })
+    // await logScreen()
   })
 })

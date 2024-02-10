@@ -143,8 +143,8 @@ export default function ProductDetail() {
       </Helmet>
       <div className='container'>
         <div className='bg-white p-4 shadow'>
-          <div className='grid grid-cols-12 gap-9'>
-            <div className='col-span-5'>
+          <div className='grid grid-cols-1 md:grid-cols-12 gap-9'>
+            <div className='md:col-span-5'>
               <div
                 className='relative w-full pt-[100%] shadow overflow-hidden cursor-zoom-in'
                 onMouseMove={handleZoom}
@@ -205,7 +205,7 @@ export default function ProductDetail() {
                 </button>
               </div>
             </div>
-            <div className='col-span-7'>
+            <div className='md:col-span-7'>
               <h1 className='text-xl font-medium uppercase'>{product.name}</h1>
               <div className='mt-8 flex items-center'>
                 <div className='flex items-center'>
@@ -222,10 +222,12 @@ export default function ProductDetail() {
                   <span className='ml-1 text-gray-500'>Đã bán</span>
                 </div>
               </div>
-              <div className='mt-8 flex items-center bg-gray-50 px-5 py-4'>
+              <div className='mt-8 flex flex-col md:flex-row md:items-center bg-gray-50 px-5 py-4'>
                 <div className='text-gray-500 line-through'>đ{formatCurrency(product.price_before_discount)}</div>
-                <div className='ml-3 text-3xl font-medium text-orange'>đ{formatCurrency(product.price)}</div>
-                <div className='ml-4 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white'>
+                <div className='md:ml-3 mb-2 md:mb-0 text-3xl font-medium text-orange'>
+                  đ{formatCurrency(product.price)}
+                </div>
+                <div className='md:ml-4 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white'>
                   {rateSale(product.price_before_discount, product.price)} giảm
                 </div>
               </div>
