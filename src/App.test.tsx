@@ -1,20 +1,15 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import * as matchers from '@testing-library/jest-dom/matchers'
 import '@testing-library/jest-dom/vitest'
+import { screen, waitFor } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
-import App from './App'
-import { BrowserRouter, MemoryRouter } from 'react-router-dom'
-import { logScreen } from './utils/testUtils'
+import path from './constants/path'
+import { renderWithRouter } from './utils/testUtils'
 
 expect.extend(matchers)
 
 describe('App', () => {
   test('App render và chuyển trang', async () => {
-    render(<App />, {
-      wrapper: BrowserRouter
-    })
-    const user = userEvent.setup()
+    const { user } = renderWithRouter()
 
     /**
      * waitFor sẽ run callback 1 vài lần
@@ -37,13 +32,17 @@ describe('App', () => {
 
   test('Về trang not found', async () => {
     const badRoutes = '/some/bad/route'
-    render(
-      <MemoryRouter initialEntries={[badRoutes]}>
-        <App />
-      </MemoryRouter>
-    )
+    renderWithRouter({ route: badRoutes })
     await waitFor(() => {
       expect(screen.getByText(/Page Not Found/i)).toBeInTheDocument()
+    })
+    // await logScreen()
+  })
+
+  test('Render trang register', async () => {
+    renderWithRouter({ route: path.register })
+    await waitFor(() => {
+      expect(screen.getByText(/Bạn đã có tài khoản?/i)).toBeInTheDocument()
     })
     // await logScreen()
   })
