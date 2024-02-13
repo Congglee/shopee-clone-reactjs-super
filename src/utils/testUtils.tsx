@@ -4,6 +4,7 @@ import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 import App from 'src/App'
+import { AppProvider, getInitialAppContext } from 'src/contexts/app.context'
 import { expect } from 'vitest'
 
 const delay = (time: number) =>
@@ -50,11 +51,14 @@ const Provider = createWrapper()
 
 export const renderWithRouter = ({ route = '/' } = {}) => {
   window.history.pushState({}, 'Test page', route)
+  const defaultValueAppContext = getInitialAppContext()
   return {
     user: userEvent.setup(),
     ...render(
       <Provider>
-        <App />
+        <AppProvider defaultValue={defaultValueAppContext}>
+          <App />
+        </AppProvider>
       </Provider>,
       { wrapper: BrowserRouter }
     )

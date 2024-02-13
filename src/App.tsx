@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'src/i18n/i18n'
 import ErrorBoundary from './components/ErrorBoundary'
-import { AppContext, AppProvider } from './contexts/app.context'
+import { AppContext } from './contexts/app.context'
 import useRouteElements from './useRouteElements'
 import { LocalStorageEventTarget } from './utils/auth'
 
@@ -24,12 +24,10 @@ function App() {
   return (
     <div className='font-Inter'>
       <HelmetProvider>
-        <AppProvider>
-          <ErrorBoundary>
-            {routeElements}
-            <ToastContainer />
-          </ErrorBoundary>
-        </AppProvider>
+        <ErrorBoundary>
+          {routeElements}
+          <ToastContainer />
+        </ErrorBoundary>
         <ReactQueryDevtools initialIsOpen={false} />
       </HelmetProvider>
     </div>
