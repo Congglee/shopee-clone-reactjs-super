@@ -33,7 +33,6 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.getByText(/Page Not Found/i)).toBeInTheDocument()
     })
-    // await logScreen()
   })
 
   test('Render trang register', async () => {
@@ -41,6 +40,5 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.getByText(/Bạn đã có tài khoản?/i)).toBeInTheDocument()
     })
-    // await logScreen()
   })
 })
