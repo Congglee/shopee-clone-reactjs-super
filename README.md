@@ -26,7 +26,7 @@ An simple e-commerce shopee clone project from reactjs super course. It is boots
 - [x] Multiple language in ReactJs with I18Next
 - [x] Improve SEO with React Helmet
 - [x] Unit Test & Integration Test for Clone Shopee project
-- [ ] Storybook for React
+- [x] Storybook for React
 
 ## Running Locally
 
