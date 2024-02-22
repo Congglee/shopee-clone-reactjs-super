@@ -1,11 +1,11 @@
 import React from 'react'
 import type { Preview } from '@storybook/react'
 import '../src/index.css'
-import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AppProvider } from '../src/contexts/app.context'
 import { HelmetProvider } from 'react-helmet-async'
 import ErrorBoundary from '../src/components/ErrorBoundary'
+import { withRouter } from 'storybook-addon-react-router-v6'
 
 const preview: Preview = {
   parameters: {
@@ -33,18 +33,17 @@ const queryClient = new QueryClient({
 })
 
 export const decorators = [
+  withRouter,
   (Story) => (
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <AppProvider>
-          <HelmetProvider>
-            <ErrorBoundary>
-              <Story />
-            </ErrorBoundary>
-          </HelmetProvider>
-        </AppProvider>
-      </QueryClientProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <AppProvider>
+        <HelmetProvider>
+          <ErrorBoundary>
+            <Story />
+          </ErrorBoundary>
+        </HelmetProvider>
+      </AppProvider>
+    </QueryClientProvider>
   )
 ]
 
