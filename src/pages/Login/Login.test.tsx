@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { screen, waitFor, fireEvent } from '@testing-library/react'
 import path from 'src/constants/path'
 import { renderWithRouter } from 'src/utils/testUtils'

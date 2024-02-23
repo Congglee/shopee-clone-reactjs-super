@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom/vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import path from './constants/path'
