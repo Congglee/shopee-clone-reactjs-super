@@ -36,6 +36,31 @@ function RejectedRoute() {
   return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
 }
 
+/**
+ * Để tối ưu re-render thì nên ưu tiên dùng <Outlet /> thay cho {children}
+ * Lưu ý là <Outlet /> nên đặt ngay trong component `element` thì mới có tác dụng tối ưu
+ * Chứ không phải đặt bên trong children của component `element`
+ */
+
+//  ✅ Tối ưu re-render
+// export default memo(function RegisterLayout({ children }: Props) {
+//  return (
+//    <div>
+//      <RegisterHeader />
+//      {children}
+//      <Outlet />
+//      <Footer />
+//    </div>
+//  )
+//  })
+
+//  ❌ Không tối ưu được vì <Outlet /> đặt vào vị trí children
+// Khi <Outlet /> thay đổi tức là children thay đổi
+// Dẫn đến component `RegisterLayout` bị re-render dù cho có dùng React.memo như trên
+// <RegisterLayout>
+//   <Outlet />
+// </RegisterLayout>
+
 export default function useRouteElements() {
   const routeElements = useRoutes([
     {
@@ -43,24 +68,26 @@ export default function useRouteElements() {
       element: <RejectedRoute />,
       children: [
         {
-          path: path.login,
-          element: (
-            <RegisterLayout>
-              <Suspense fallback={<div>Loading...</div>}>
-                <Login />
-              </Suspense>
-            </RegisterLayout>
-          )
-        },
-        {
-          path: path.register,
-          element: (
-            <RegisterLayout>
-              <Suspense>
-                <Register />
-              </Suspense>
-            </RegisterLayout>
-          )
+          path: '',
+          element: <RegisterLayout />,
+          children: [
+            {
+              path: path.login,
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Login />
+                </Suspense>
+              )
+            },
+            {
+              path: path.register,
+              element: (
+                <Suspense>
+                  <Register />
+                </Suspense>
+              )
+            }
+          ]
         }
       ]
     },
@@ -81,74 +108,106 @@ export default function useRouteElements() {
         },
         {
           path: path.user,
-          element: (
-            <MainLayout>
-              <UserLayout />
-            </MainLayout>
-          ),
+          element: <MainLayout />,
           children: [
             {
-              path: path.profile,
-              element: (
-                <Suspense>
-                  <Profile />
-                </Suspense>
-              )
-            },
-            {
-              path: path.changePassword,
-              element: (
-                <Suspense>
-                  <ChangePassword />
-                </Suspense>
-              )
-            },
-            {
-              path: path.historyPurchase,
-              element: (
-                <Suspense>
-                  <HistoryPurchase />
-                </Suspense>
-              )
+              path: '',
+              element: <UserLayout />,
+              children: [
+                {
+                  path: path.profile,
+                  element: (
+                    <Suspense>
+                      <Profile />
+                    </Suspense>
+                  )
+                },
+                {
+                  path: path.changePassword,
+                  element: (
+                    <Suspense>
+                      <ChangePassword />
+                    </Suspense>
+                  )
+                },
+                {
+                  path: path.historyPurchase,
+                  element: (
+                    <Suspense>
+                      <HistoryPurchase />
+                    </Suspense>
+                  )
+                }
+              ]
             }
           ]
         }
       ]
     },
-
-    {
-      path: path.productDetail,
-      element: (
-        <MainLayout>
-          <Suspense>
-            <ProductDetail />
-          </Suspense>
-        </MainLayout>
-      )
-    },
-
     {
       path: '',
-      index: true,
-      element: (
-        <MainLayout>
-          <Suspense>
-            <ProductList />
-          </Suspense>
-        </MainLayout>
-      )
-    },
-
-    {
-      path: '*',
-      element: (
-        <MainLayout>
-          <Suspense>
-            <NotFound />
-          </Suspense>
-        </MainLayout>
-      )
+      element: <MainLayout />,
+      children: [
+        {
+          path: path.productDetail,
+          element: (
+            <Suspense>
+              <ProductDetail />
+            </Suspense>
+          )
+        },
+        {
+          path: '',
+          index: true,
+          element: (
+            <Suspense>
+              <ProductList />
+            </Suspense>
+          )
+        },
+        {
+          path: '*',
+          element: (
+            <Suspense>
+              <NotFound />
+            </Suspense>
+          )
+        }
+      ]
     }
+    // {
+    //   path: path.productDetail,
+    //   element: (
+    //     <MainLayout>
+    //       <Suspense>
+    //         <ProductDetail />
+    //       </Suspense>
+    //     </MainLayout>
+    //   )
+    // },
+
+    // {
+    //   path: '',
+    //   index: true,
+    //   element: (
+    //     <MainLayout>
+    //       <Suspense>
+    //         <ProductList />
+    //       </Suspense>
+    //     </MainLayout>
+    //   )
+    // },
+
+    // {
+    //   path: '*',
+    //   element: (
+    //     <MainLayout>
+    //       <Suspense>
+    //         <NotFound />
+    //       </Suspense>
+    //     </MainLayout>
+    //   )
+    // }
   ])
 
   return routeElements
