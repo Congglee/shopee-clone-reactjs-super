@@ -30,7 +30,7 @@ function App() {
   }, [reset])
 
   return (
-    <div className='font-Inter'>
+    <>
       <HelmetProvider>
         <ErrorBoundary>
           {routeElements}
@@ -38,7 +38,7 @@ function App() {
         </ErrorBoundary>
         <ReactQueryDevtools initialIsOpen={false} />
       </HelmetProvider>
-    </div>
+    </>
   )
 }
 

@@ -13,6 +13,9 @@ export default {
       },
       colors: {
         orange: '#ee4d2d'
+      },
+      screens: {
+        xs: '480px'
       }
     }
   },

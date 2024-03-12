@@ -231,7 +231,7 @@ export default function ProductDetail() {
                   {rateSale(product.price_before_discount, product.price)} giảm
                 </div>
               </div>
-              <div className='mt-8 flex items-center'>
+              <div className='mt-8 flex flex-col xs:flex-row xs:items-center gap-2'>
                 <div className='capitalize text-gray-500'>Số lượng</div>
                 <QuantityController
                   onDecrease={handleBuyCount}
@@ -240,11 +240,11 @@ export default function ProductDetail() {
                   value={buyCount}
                   max={product.quantity}
                 />
-                <div className='ml-6 text-sm text-gray-500'>
+                <div className='xs:ml-6 text-sm text-gray-500'>
                   {product.quantity} {t('product:available')}
                 </div>
               </div>
-              <div className='mt-8 flex items-center'>
+              <div className='mt-8 flex flex-col xs:flex-row xs:items-center gap-2'>
                 <button
                   className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
                   onClick={addToCart}
@@ -276,7 +276,7 @@ export default function ProductDetail() {
                 </button>
                 <button
                   onClick={buyNow}
-                  className='ml-4 flex h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
+                  className='xs:ml-4 flex h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
                 >
                   Mua ngay
                 </button>

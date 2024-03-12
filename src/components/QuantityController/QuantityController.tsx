@@ -14,7 +14,7 @@ export default function QuantityController({
   max,
   onIncrease,
   onDecrease,
-  classNameWrapper = 'ml-10',
+  classNameWrapper = 'xs:ml-10',
   onType,
   onFocusOut,
   value,
